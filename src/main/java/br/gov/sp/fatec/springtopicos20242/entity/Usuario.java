@@ -1,10 +1,16 @@
 package br.gov.sp.fatec.springtopicos20242.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,13 +20,29 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usr_id")
+    @JsonView({View.UsuarioView.class})
     private Long id;
 
     @Column(name = "usr_nome")
+    @JsonView({View.UsuarioView.class, View.AnotacaoView.class})
     private String nome;
     
     @Column(name = "usr_senha")
     private String senha;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonView({View.UsuarioView.class})
+    private Set<Anotacao> anotacoes;
+
+    public Usuario() {
+        setAnotacoes(new HashSet<Anotacao>());
+    }
+
+    public Usuario(String nome, String senha) {
+        this();
+        setNome(nome);
+        setSenha(senha);
+    }
 
     public Long getId() {
         return id;
@@ -44,6 +66,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Set<Anotacao> getAnotacoes() {
+        return anotacoes;
+    }
+
+    public void setAnotacoes(Set<Anotacao> anotacoes) {
+        this.anotacoes = anotacoes;
     }
     
 }
