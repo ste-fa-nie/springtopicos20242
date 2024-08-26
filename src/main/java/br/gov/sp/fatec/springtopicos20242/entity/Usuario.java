@@ -10,6 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -33,6 +36,13 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     @JsonView({View.UsuarioView.class})
     private Set<Anotacao> anotacoes;
+
+    @ManyToMany
+    @JoinTable(name = "uau_usuario_autorizacao",
+        joinColumns = {@JoinColumn(name = "usr_id")},
+        inverseJoinColumns = {@JoinColumn(name = "aut_id")})
+    @JsonView({View.UsuarioView.class})
+    private Set<Autorizacao> autorizacoes;
 
     public Usuario() {
         setAnotacoes(new HashSet<Anotacao>());
@@ -74,6 +84,14 @@ public class Usuario {
 
     public void setAnotacoes(Set<Anotacao> anotacoes) {
         this.anotacoes = anotacoes;
+    }
+
+    public Set<Autorizacao> getAutorizacoes() {
+        return autorizacoes;
+    }
+
+    public void setAutorizacoes(Set<Autorizacao> autorizacoes) {
+        this.autorizacoes = autorizacoes;
     }
     
 }
