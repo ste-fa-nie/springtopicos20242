@@ -42,4 +42,11 @@ public class TrabalhoServiceImpl implements TrabalhoService{
         return trabalhos;
     }
 
+    @Override
+    public List<Trabalho> buscaPorTituloAndNota(String titulo, Integer nota){
+        List<Trabalho> trabalhos = new ArrayList<Trabalho>();
+        trabalhos = repo.buscaPorTituloAndNota(titulo, nota);
+        return trabalhos;
+    }
+
 }
