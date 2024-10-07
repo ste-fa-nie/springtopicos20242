@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import br.gov.sp.fatec.springtopicos20242.entity.Trabalho;
 
 public interface TrabalhoRepository extends JpaRepository<Trabalho, Long> {
-    
-    @Query("select t from Trabalho where t.titulo LIKE %?1% AND t.nota > ?2")
+
+    @Query("select t from Trabalho t where t.titulo LIKE %?1% AND t.nota > ?2")
     public List<Trabalho> buscaPorTituloAndNota(String titulo, Integer nota);
 
 }
