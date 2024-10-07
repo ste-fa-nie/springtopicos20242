@@ -18,20 +18,21 @@ import br.gov.sp.fatec.springtopicos20242.service.TrabalhoService;
 @RequestMapping(value = "/trabalho")
 @CrossOrigin
 public class TrabalhoController {
+
     @Autowired
     private TrabalhoService service;
 
-    @GetMapping(name = "listar")
+    @GetMapping(value = "listar")
     public List<Trabalho> todosTrabalho(){
         return service.todosTrabalho();
     }
 
-    @PostMapping(name = "cadastrar")
+    @PostMapping(value = "cadastrar")
     public Trabalho cadastrarTrabalho(@RequestBody Trabalho trabalho){
         return service.novoTrabalho(trabalho);
     }
 
-    @GetMapping(name = "listarBy")
+    @GetMapping(value = "listarBy")
     public List<Trabalho> listarBy(@RequestParam String titulo, @RequestParam Integer nota){
         return service.buscaPorTituloAndNota(titulo, nota);
     }
